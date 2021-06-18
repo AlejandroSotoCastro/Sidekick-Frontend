@@ -29,3 +29,8 @@
   flex-wrap: wrap;
   margin: 0 20%;
 }
+
+.Statblock {
+  padding-left: 20%;
+  padding-right: 20%;
+}

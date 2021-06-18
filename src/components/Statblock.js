@@ -28,7 +28,12 @@ export default function Statblock() {
     fetchData();
   }, []);
 
-  if (!fetechedData) return <div>hola</div>;
+  if (!fetechedData)
+    return (
+      <div>
+        <img src={"favicon.ico"} alt="icon"></img>
+      </div>
+    );
 
   const monster = fetechedData;
   const {
@@ -68,13 +73,13 @@ export default function Statblock() {
 
   return (
     <div className="mon-stat-block">
-      <img src={barbook}></img>
+      <img src={barbook} alt="barbook"></img>
       <div>
-        <img src={top}></img>
+        <img src={top} alt="top bar"></img>
         <h2>{name}</h2>
         <p>{`${size} ${type} (${subtype && subtype}), ${alignment}`}</p>
       </div>
-      <img src={line}></img>
+      <img src={line} alt="divider-line"></img>
       <div>
         <p>Armor Class: {armor_class}</p>
         <p>
@@ -92,7 +97,7 @@ export default function Statblock() {
 
         <p>Initiative: {mod(dexterity)} </p>
       </div>
-      <img src={line}></img>
+      <img src={line} alt="divider-line"></img>
       <div className="abil-sub-block">
         <p>
           STR <br /> {strength} ({mod(strength)})
@@ -113,7 +118,7 @@ export default function Statblock() {
           CHA <br /> {charisma} ({mod(charisma)})
         </p>
       </div>
-      <img src={line}></img>
+      <img src={line} alt="divider-line"></img>
       <div className="skill-sub-block">
         {proficiencies.length > 0 && (
           <p>
@@ -128,7 +133,12 @@ export default function Statblock() {
           </p>
         )}
         {damage_vulnerabilities.length > 0 && (
-          <p>Damage Vulnerabilities {damage_vulnerabilities}</p>
+          <p>
+            Damage Vulnerabilities:{" "}
+            {damage_vulnerabilities.map((d_vulnera, index) => (
+              <span key={index}>{d_vulnera}</span>
+            ))}
+          </p>
         )}
         {damage_resistances.length > 0 && (
           <p>
@@ -167,14 +177,14 @@ export default function Statblock() {
         {/*TEMP */}
         <p>Proficiency Bonus: +{proficiency_bonus}</p>
       </div>
-      <img src={line}></img>
+      <img src={line} alt="divider-line"></img>
       <div>Special abilities</div>
       {special_abilities.map((ability, index) => (
-        <p>
+        <p key={index}>
           {ability.name}: {ability.desc}
         </p>
       ))}
-      <img src={line}></img>
+      <img src={line} alt="divider-line"></img>
       <div>Actions</div>
       {actions.map((action, index) => (
         <p key={index}>
