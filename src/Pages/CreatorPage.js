@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import Select from "react-select";
 
@@ -17,17 +17,12 @@ export default function CreatorPage() {
   const dispatch = useDispatch();
   const monsterList = useSelector(selectMonsters);
 
-  console.log(monsterList);
+  // console.log(monsterList);
 
   useEffect(() => {
     dispatch(fetchListOfMonsters("0.5"));
   }, [dispatch]);
 
-  const options = [
-    { value: "chocolate", label: "Chocolate" },
-    { value: "strawberry", label: "Strawberry" },
-    { value: "vanilla", label: "Vanilla" },
-  ];
   return (
     <div className="Statblock">
       <Select

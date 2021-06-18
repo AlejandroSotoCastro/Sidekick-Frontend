@@ -1,8 +1,16 @@
 import React from "react";
 import { useState, useEffect } from "react";
+
+import { useSelector, useDispatch } from "react-redux";
+
+/**IMPORT SELECTORS */
+import { selectSidekick } from "../store/sidekick/selectors";
+
+/**IMPORT IMAGES */
 import line from "../img/stat-block-header-bar.svg";
 import top from "../img/stat-block-top-texture.png";
 import barbook from "../img/stat-bar-book.png";
+
 const axios = require("axios");
 
 export default function Statblock() {
@@ -13,6 +21,7 @@ export default function Statblock() {
   }
 
   //fetch data
+  const sidekick = useSelector(selectSidekick);
   const [fetechedData, set_fetechedData] = useState();
 
   useEffect(() => {
@@ -28,14 +37,14 @@ export default function Statblock() {
     fetchData();
   }, []);
 
-  if (!fetechedData)
+  if (!sidekick.index)
     return (
       <div>
         <img src={"favicon.ico"} alt="icon"></img>
       </div>
     );
 
-  const monster = fetechedData;
+  const monster = sidekick;
   const {
     name,
     size,
@@ -77,7 +86,9 @@ export default function Statblock() {
       <div>
         <img src={top} alt="top bar"></img>
         <h2>{name}</h2>
-        <p>{`${size} ${type} (${subtype && subtype}), ${alignment}`}</p>
+        <span>
+          {size} {type} {subtype && `(${subtype})`} {alignment}
+        </span>
       </div>
       <img src={line} alt="divider-line"></img>
       <div>
@@ -178,19 +189,28 @@ export default function Statblock() {
         <p>Proficiency Bonus: +{proficiency_bonus}</p>
       </div>
       <img src={line} alt="divider-line"></img>
-      <div>Special abilities</div>
-      {special_abilities.map((ability, index) => (
-        <p key={index}>
-          {ability.name}: {ability.desc}
-        </p>
-      ))}
-      <img src={line} alt="divider-line"></img>
-      <div>Actions</div>
-      {actions.map((action, index) => (
-        <p key={index}>
-          {action.name}: {action.desc}
-        </p>
-      ))}
+      {special_abilities && special_abilities.length > 0 && (
+        <div>
+          Special abilities
+          {special_abilities.map((ability, index) => (
+            <p key={index}>
+              {ability.name}: {ability.desc}
+            </p>
+          ))}
+          <img src={line} alt="divider-line"></img>
+        </div>
+      )}
+
+      {actions && (
+        <div>
+          Actions
+          {actions.map((action, index) => (
+            <p key={index}>
+              {action.name}: {action.desc}
+            </p>
+          ))}
+        </div>
+      )}
     </div>
   );
 }

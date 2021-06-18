@@ -1,6 +1,5 @@
 import axios from "axios";
 import { apiUrl } from "../../config/constants";
-import { selectSidekick } from "./selectors";
 
 export const MONSTER_FETCHED = "MONSTER_FETCHED";
 
