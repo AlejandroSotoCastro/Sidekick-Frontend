@@ -1,16 +1,5 @@
 .App {
-  text-align: center;
-}
-
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
-}
-
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
+  text-align: left;
 }
 
 .App-header {
@@ -24,15 +13,26 @@
   color: white;
 }
 
-.App-link {
-  color: #61dafb;
+.mon-stat-block {
+  padding-left: 2%;
+  padding-right: 2%;
+
+  font-family: MrsEavesSmallCaps, Roboto, Helvetica, sans-serif;
+  min-width: 500px;
+  min-height: 500px;
+  background-image: url("./img/paper-texture.png");
+  color: #822000;
+}
+.abil-sub-block {
+  display: flex;
+  align-content: space-between;
+  flex-wrap: wrap;
+  margin: 0 20%;
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+.Statblock {
+  padding-left: 20%;
+  padding-right: 20%;
+  padding-top: 5%;
+  margin-top: 5%;
 }
