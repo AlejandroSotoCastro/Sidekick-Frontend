@@ -1,8 +1,12 @@
 import { MONSTER_FETCHED } from "./actions";
+import { SIDEKICK_PICKED } from "./actions";
 
 const initialState = {
   index: "Monster",
   name: "Monster",
+  sidekickName: "",
+  cclass: "",
+  level: 1,
   size: "",
   type: "",
   subtype: "",
@@ -40,11 +44,16 @@ const initialState = {
 export default function reducer(state = initialState, { type, payload }) {
   switch (type) {
     case MONSTER_FETCHED:
-      console.log("hey");
+      return {
+        ...payload,
+        sidekickName: state.sidekickName,
+        cclass: state.cclass,
+        level: state.level,
+      };
 
-      return payload;
+    case SIDEKICK_PICKED:
+      return { ...state, cclass: payload };
     default:
-      console.log("ho");
       return state;
   }
 }

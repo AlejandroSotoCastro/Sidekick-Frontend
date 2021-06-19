@@ -1,5 +1,4 @@
 import React from "react";
-import { useState, useEffect } from "react";
 
 import { useSelector, useDispatch } from "react-redux";
 
@@ -11,8 +10,6 @@ import line from "../img/stat-block-header-bar.svg";
 import top from "../img/stat-block-top-texture.png";
 import barbook from "../img/stat-bar-book.png";
 
-const axios = require("axios");
-
 export default function Statblock() {
   /**Function to calculate mod bonus of an abilitiy score */
   function mod(abilityScore) {
@@ -22,20 +19,6 @@ export default function Statblock() {
 
   //fetch data
   const sidekick = useSelector(selectSidekick);
-  const [fetechedData, set_fetechedData] = useState();
-
-  useEffect(() => {
-    /**Function to fetch data from the API */
-    async function fetchData() {
-      const response = await axios.get(
-        "http://localhost:4000/sidekick/aboleth"
-      );
-      console.log(response.data);
-      set_fetechedData(response.data);
-    }
-
-    fetchData();
-  }, []);
 
   if (!sidekick.index)
     return (
@@ -47,6 +30,9 @@ export default function Statblock() {
   const monster = sidekick;
   const {
     name,
+    sidekickName,
+    cclass,
+    level,
     size,
     type,
     subtype,
@@ -85,6 +71,9 @@ export default function Statblock() {
       <img src={barbook} alt="barbook"></img>
       <div>
         <img src={top} alt="top bar"></img>
+        <h2>Name: {sidekickName}</h2>
+        <h2>Class: {cclass}</h2>
+        <h2>Level: {level}</h2>
         <h2>{name}</h2>
         <span>
           {size} {type} {subtype && `(${subtype})`} {alignment}
