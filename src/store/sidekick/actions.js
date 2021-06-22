@@ -11,6 +11,7 @@ export const LEVEL_PICKED = "LEVEL_PICKED";
 
 export const LVL1_APPLIED = "LVL1_APPLIED";
 export const LVL2_APPLIED = "LVL2_APPLIED";
+export const LVL3_APPLIED = "LVL3_APPLIED";
 
 const monsterFetched = (monster) => ({
   type: MONSTER_FETCHED,
@@ -34,6 +35,11 @@ const lvl1applied = (features) => ({
 
 const lvl2applied = (features) => ({
   type: LVL2_APPLIED,
+  payload: features,
+});
+
+const lvl3applied = (features) => ({
+  type: LVL3_APPLIED,
   payload: features,
 });
 
@@ -95,5 +101,11 @@ export const applyLvl1 = (features) => {
 export const applyLvl2 = (features) => {
   return (dispatch, getState) => {
     dispatch(lvl2applied(features));
+  };
+};
+
+export const applyLvl3 = (features) => {
+  return (dispatch, getState) => {
+    dispatch(lvl3applied(features));
   };
 };

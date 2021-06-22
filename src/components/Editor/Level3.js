@@ -4,7 +4,7 @@ import { useSelector, useDispatch } from "react-redux";
 
 /**IMPORT LEVEL DATA */
 
-import { level2Features } from "../../config/level&classIDATA";
+import { level3Features } from "../../config/level&classIDATA";
 
 /**IMPORT BOOTSTRAP & REACT-SELECT*/
 import Container from "react-bootstrap/Container";
@@ -12,25 +12,25 @@ import Button from "react-bootstrap/Button";
 import Collapse from "react-bootstrap/Collapse";
 
 /**IMPORT ACTIONS */
-import { applyLvl2 } from "../../store/sidekick/actions";
+import { applyLvl3 } from "../../store/sidekick/actions";
 
 /**IMPORT SELECTORS */
 import { selectSidekick } from "../../store/sidekick/selectors";
 
-export default function Level2() {
+export default function Level3() {
   const sidekick = useSelector(selectSidekick);
   const { cclass } = sidekick;
   const dispatch = useDispatch();
 
   const [open, setOpen] = useState(true);
 
-  if (!level2Features.classFeatureNames[cclass]) return null;
+  if (!level3Features.classFeatureNames[cclass]) return null;
 
   return (
     <Container>
       <span>
         <h3>
-          2nd-level {cclass} features
+          3nd-level {cclass} features
           <Button
             style={{ margin: "2% 2% 2% 2%" }}
             onClick={() => setOpen(!open)}
@@ -43,17 +43,17 @@ export default function Level2() {
       </span>
       <Collapse in={open}>
         <Container style={{ border: "solid", padding: "2% 2% 2% 2%" }}>
-          <h4>{level2Features.classFeatureNames[cclass]}</h4>
-          <span> {level2Features.classFeatureText[cclass]}</span>
+          <h4>{level3Features.classFeatureNames[cclass]}</h4>
+          <span> {level3Features.classFeatureText[cclass]}</span>
 
           <Button
             style={{ margin: "2% 2% 2% 2%" }}
             onClick={() => {
               setOpen(false);
-              dispatch(applyLvl2(level2Features.classFeatureOptions[cclass]));
+              dispatch(applyLvl3(level3Features.classFeatureOptions[cclass]));
             }}
           >
-            Apply level 2
+            Apply level 3
           </Button>
         </Container>
       </Collapse>

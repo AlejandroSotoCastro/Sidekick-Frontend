@@ -138,7 +138,7 @@ export const level1Features = {
     expert: [],
   },
 };
-
+const level = 0;
 export const level2Features = {
   classFeatureNames: {
     warrior: "SECOND WIND",
@@ -156,12 +156,39 @@ export const level2Features = {
   classFeatureOptions: {
     warrior: {
       name: "Second Wind",
-      desc: "The sidekick can use a bonus action on its turn to regain hit points equal to 1d10 +  {level} in this class. Once it uses this feature, it must finish a short or long rest before it can use it again. The sidekick can use this feature twice between rests starting at 20th level.",
+      desc: "The sidekick can use a bonus action on its turn to regain hit points equal to 1d10 +  ${level} in this class. Once it uses this feature, it must finish a short or long rest before it can use it again. The sidekick can use this feature twice between rests starting at 20th level.",
     },
     spellcaster: { name: "", desc: "" },
     expert: {
       name: "Cunning Action",
       desc: "The sidekick's agility or quick thinking allows it to  act speedily. On its turn in combat, it can take the Dash, Disengage, or Hide action as a bonus action.",
+    },
+  },
+};
+
+export const level3Features = {
+  classFeatureNames: {
+    warrior: "IMPROVED CRITICAL",
+    spellcaster: "",
+    expert: "EXPERTISE",
+  },
+  classFeatureText: {
+    warrior:
+      "The sidekick's attack rolls score a critical hit on a roll of 19 or 20 on the d20.",
+    spellcaster: "",
+    expert:
+      "Choose two of the sidekick's skill proficiencies. The sidekick's proficiency bonus is doubled for any ability check it makes that uses any of the chosen proficiencies..",
+  },
+
+  classFeatureOptions: {
+    warrior: {
+      name: "Inproved Critical",
+      desc: "The sidekick's attack rolls score a critical hit on a roll of 19 or 20 on the d20.",
+    },
+    spellcaster: { name: "", desc: "" },
+    expert: {
+      name: "Expertise",
+      desc: "Choose two of the sidekick's skill proficiencies. The sidekick's proficiency bonus is doubled for any ability check it makes that uses any of the chosen proficiencies..",
     },
   },
 };
