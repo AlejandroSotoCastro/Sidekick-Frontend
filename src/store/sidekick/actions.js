@@ -1,8 +1,47 @@
 import axios from "axios";
 import { apiUrl } from "../../config/constants";
 
+import { selectSidekick } from "./selectors";
+
 export const MONSTER_FETCHED = "MONSTER_FETCHED";
 export const SIDEKICK_PICKED = "SIDEKICK_PICKED";
+export const LVL1_APPLIED = "LVL1_APPLIED";
+
+function getStat(skill) {
+  const convert = {
+    Athletics: "strength",
+    STR: "strength",
+
+    Acrobatics: "dexterity",
+    Sleight_of_Hand: "dexterity",
+    Stealth: "dexterity",
+    DEX: "dexterity",
+
+    CON: "constitution",
+
+    Arcana: "intelligence",
+    History: "intelligence",
+    Investigation: "intelligence",
+    Nature: "intelligence",
+    Religion: "intelligence",
+    INT: "intelligence",
+
+    Animal_Handling: "wisdom",
+    Insight: "wisdom",
+    Medicine: "wisdom",
+    Perception: "wisdom",
+    Survival: "wisdom",
+    WIS: "wisdom",
+
+    Deception: "charisma",
+    Intimidation: "charisma",
+    Performance: "charisma",
+    Persuasion: "charisma",
+    CHA: "charisma",
+  };
+
+  return convert[skill]; // => Stat (Ex: charisma)
+}
 
 const monsterFetched = (monster) => ({
   type: MONSTER_FETCHED,
@@ -12,6 +51,11 @@ const monsterFetched = (monster) => ({
 const classPicked = (sidekick) => ({
   type: SIDEKICK_PICKED,
   payload: sidekick,
+});
+
+const lvl1applied = (features) => ({
+  type: LVL1_APPLIED,
+  payload: features,
 });
 
 export const fetchMonster = (monster_index) => {
@@ -24,17 +68,45 @@ export const fetchMonster = (monster_index) => {
 
 export const pickClass = (class_index) => {
   return (dispatch, getState) => {
-    console.log(class_index);
     dispatch(classPicked(class_index));
   };
 };
 
-export const pickLevel = (Lvl) => {
+export const applyLvl1 = (features) => {
   return (dispatch, getState) => {
-    //*probably getState CLASS at some point*//
-    const class_index = "warrior";
+    const { proficiencies, cclass } = selectSidekick(getState());
 
-    switch (class_index) {
+    //get the keys of the Object.   array.includes
+    const profKeys = proficiencies.map((prof) => prof.name);
+    const newFeatures = { prof: [], speciality: "" };
+
+    //     savingProf: ""
+    // skillProf: []
+    // speciality: "attacker"
+    if (!profKeys.includes(features.savingProf))
+      newFeatures.prof.push({
+        name: features.savingProf,
+        stat: getStat(features.savingProf),
+      });
+
+    features.skillProf.map((skill) => {
+      if (!profKeys.includes(skill)) {
+        newFeatures.prof.push({ name: skill, stat: getStat(skill) });
+      }
+    });
+
+    newFeatures.prof.push({
+      name: " It also gains proficiency with light armor and, if it is a humanoid orhas a simple or martial weapon in its stat block, it also gains proficiency with",
+      stat: "",
+    });
+
+    newFeatures.prof.push(features.otherProf);
+    newFeatures.speciality = features.speciality;
+
+    console.log(newFeatures);
+    //console.log("profkeys", profKeys);
+
+    switch (cclass) {
       default:
       case "warrior":
 
@@ -44,7 +116,26 @@ export const pickLevel = (Lvl) => {
 
     let sidekick = {};
 
+    // console.log(sidekick);
+    dispatch(lvl1applied(newFeatures));
+  };
+};
+
+/**PROBABLY NOT GOING TO USE THIS */
+export const pickLevel = (Lvl) => {
+  return (dispatch, getState) => {
+    const class_index = "warrior";
+
+    switch (class_index) {
+      default:
+      case "warrior":
+      case "expert":
+      case "spellcaster":
+    }
+
+    let sidekick = {};
+
     console.log(sidekick);
-    dispatch(classPicked(sidekick));
+    //dispatch(LvL1Applied(sidekick));
   };
 };
