@@ -1,6 +1,6 @@
 import React from "react";
 
-import { useSelector, useDispatch } from "react-redux";
+import { useSelector } from "react-redux";
 
 /**IMPORT SELECTORS */
 import { selectSidekick } from "../store/sidekick/selectors";

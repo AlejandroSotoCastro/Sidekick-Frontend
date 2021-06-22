@@ -7,7 +7,7 @@ import Container from "react-bootstrap/Container";
 
 /**IMPORT COMPONENTS */
 import Statblock from "../components/Statblock";
-import Editor from "../components/Editor";
+import Editor from "../components/Editor/Editor";
 
 /**IMPORT ACTIONS */
 import { fetchListOfMonsters } from "../store/monsters/actions";

@@ -74,15 +74,12 @@ export const pickClass = (class_index) => {
 
 export const applyLvl1 = (features) => {
   return (dispatch, getState) => {
-    const { proficiencies, cclass } = selectSidekick(getState());
+    const { proficiencies } = selectSidekick(getState());
 
     //get the keys of the Object.   array.includes
     const profKeys = proficiencies.map((prof) => prof.name);
     const newFeatures = { prof: [], speciality: "" };
 
-    //     savingProf: ""
-    // skillProf: []
-    // speciality: "attacker"
     if (!profKeys.includes(features.savingProf))
       newFeatures.prof.push({
         name: features.savingProf,
@@ -103,18 +100,7 @@ export const applyLvl1 = (features) => {
     newFeatures.prof.push(features.otherProf);
     newFeatures.speciality = features.speciality;
 
-    console.log(newFeatures);
-    //console.log("profkeys", profKeys);
-
-    switch (cclass) {
-      default:
-      case "warrior":
-
-      case "expert":
-      case "spellcaster":
-    }
-
-    let sidekick = {};
+    // console.log(newFeatures);
 
     // console.log(sidekick);
     dispatch(lvl1applied(newFeatures));
