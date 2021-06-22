@@ -5,6 +5,8 @@ import { selectSidekick } from "./selectors";
 
 export const MONSTER_FETCHED = "MONSTER_FETCHED";
 export const SIDEKICK_PICKED = "SIDEKICK_PICKED";
+export const LEVEL_PICKED = "LEVEL_PICKED";
+
 export const LVL1_APPLIED = "LVL1_APPLIED";
 
 function getStat(skill) {
@@ -53,6 +55,11 @@ const classPicked = (sidekick) => ({
   payload: sidekick,
 });
 
+const levelPicked = (level) => ({
+  type: LEVEL_PICKED,
+  payload: level,
+});
+
 const lvl1applied = (features) => ({
   type: LVL1_APPLIED,
   payload: features,
@@ -69,6 +76,12 @@ export const fetchMonster = (monster_index) => {
 export const pickClass = (class_index) => {
   return (dispatch, getState) => {
     dispatch(classPicked(class_index));
+  };
+};
+
+export const pickLevel = (Lvl) => {
+  return (dispatch, getState) => {
+    dispatch(levelPicked(Lvl));
   };
 };
 
@@ -104,24 +117,5 @@ export const applyLvl1 = (features) => {
 
     // console.log(sidekick);
     dispatch(lvl1applied(newFeatures));
-  };
-};
-
-/**PROBABLY NOT GOING TO USE THIS */
-export const pickLevel = (Lvl) => {
-  return (dispatch, getState) => {
-    const class_index = "warrior";
-
-    switch (class_index) {
-      default:
-      case "warrior":
-      case "expert":
-      case "spellcaster":
-    }
-
-    let sidekick = {};
-
-    console.log(sidekick);
-    //dispatch(LvL1Applied(sidekick));
   };
 };

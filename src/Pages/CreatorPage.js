@@ -11,8 +11,7 @@ import Editor from "../components/Editor/Editor";
 
 /**IMPORT ACTIONS */
 import { fetchListOfMonsters } from "../store/monsters/actions";
-import { fetchMonster } from "../store/sidekick/actions";
-import { pickClass } from "../store/sidekick/actions";
+import { fetchMonster, pickLevel, pickClass } from "../store/sidekick/actions";
 
 /**IMPORT SELECTORS */
 import { selectMonsters } from "../store/monsters/selectors";
@@ -40,27 +39,25 @@ export default function CreatorPage() {
           { value: "expert", label: "Expert" },
           { value: "spellcaster", label: "Spellcaster" },
         ]}
-        styles={{
-          option: (provided, state) => ({
-            ...provided,
-            color: "black",
-            padding: 20,
-          }),
-        }}
       />
 
       <Select
         placeholder="Search for Monster"
         onChange={(text) => dispatch(fetchMonster(text.value))}
         options={monsterList}
-        styles={{
-          option: (provided, state) => ({
-            ...provided,
-            color: "black",
-            padding: 20,
-          }),
-        }}
       />
+
+      <Select
+        placeholder="Sidekick level"
+        defaultValue={{ value: 1, label: "Level 1" }}
+        onChange={(text) => dispatch(pickLevel(text.value))}
+        options={[
+          { value: 1, label: "Level 1" },
+          { value: 2, label: "Level 2" },
+          { value: 3, label: "Level 3" },
+        ]}
+      />
+
       {cclass && index !== "Monster" && (
         <Container>
           <Editor />
