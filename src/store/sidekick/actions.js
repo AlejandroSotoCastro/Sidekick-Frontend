@@ -8,6 +8,7 @@ export const SIDEKICK_PICKED = "SIDEKICK_PICKED";
 export const LEVEL_PICKED = "LEVEL_PICKED";
 
 export const LVL1_APPLIED = "LVL1_APPLIED";
+export const LVL2_APPLIED = "LVL2_APPLIED";
 
 function getStat(skill) {
   const convert = {
@@ -65,6 +66,11 @@ const lvl1applied = (features) => ({
   payload: features,
 });
 
+const lvl2applied = (features) => ({
+  type: LVL2_APPLIED,
+  payload: features,
+});
+
 export const fetchMonster = (monster_index) => {
   return async (dispatch, getState) => {
     const response = await axios.get(`${apiUrl}/sidekick/${monster_index}`);
@@ -117,5 +123,11 @@ export const applyLvl1 = (features) => {
 
     // console.log(sidekick);
     dispatch(lvl1applied(newFeatures));
+  };
+};
+
+export const applyLvl2 = (features) => {
+  return (dispatch, getState) => {
+    dispatch(lvl2applied(features));
   };
 };

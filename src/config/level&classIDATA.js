@@ -138,3 +138,30 @@ export const level1Features = {
     expert: [],
   },
 };
+
+export const level2Features = {
+  classFeatureNames: {
+    warrior: "SECOND WIND",
+    spellcaster: "",
+    expert: "CUNNING ACTION",
+  },
+  classFeatureText: {
+    warrior:
+      "The sidekick can use a bonus action on its turn to regain hit points equal to 1d10 + its level in this class. Once it uses this feature, it must finish a short or long rest before it can use it again. The sidekick can use this feature twice between rests starting at 20th level.",
+    spellcaster: "",
+    expert:
+      "The sidekick's agility or quick thinking allows it to  act speedily. On its turn in combat, it can take the Dash, Disengage, or Hide action as a bonus action.",
+  },
+
+  classFeatureOptions: {
+    warrior: {
+      name: "Second Wind",
+      desc: "The sidekick can use a bonus action on its turn to regain hit points equal to 1d10 +  {level} in this class. Once it uses this feature, it must finish a short or long rest before it can use it again. The sidekick can use this feature twice between rests starting at 20th level.",
+    },
+    spellcaster: { name: "", desc: "" },
+    expert: {
+      name: "Cunning Action",
+      desc: "The sidekick's agility or quick thinking allows it to  act speedily. On its turn in combat, it can take the Dash, Disengage, or Hide action as a bonus action.",
+    },
+  },
+};

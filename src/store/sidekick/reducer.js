@@ -2,6 +2,7 @@ import { MONSTER_FETCHED } from "./actions";
 import { SIDEKICK_PICKED } from "./actions";
 import { LEVEL_PICKED } from "./actions";
 import { LVL1_APPLIED } from "./actions";
+import { LVL2_APPLIED } from "./actions";
 
 const initialState = {
   index: "Monster",
@@ -64,6 +65,12 @@ export default function reducer(state = initialState, { type, payload }) {
         ...state,
         proficiencies: [...state.proficiencies, ...payload.prof],
         special_abilities: [...state.special_abilities, payload.speciality],
+      };
+
+    case LVL2_APPLIED:
+      return {
+        ...state,
+        special_abilities: [...state.special_abilities, payload],
       };
     default:
       return state;
