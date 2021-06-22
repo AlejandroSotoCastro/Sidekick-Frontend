@@ -3,48 +3,14 @@ import { apiUrl } from "../../config/constants";
 
 import { selectSidekick } from "./selectors";
 
+import { getStat } from "../../config/HelperFunctions";
+
 export const MONSTER_FETCHED = "MONSTER_FETCHED";
 export const SIDEKICK_PICKED = "SIDEKICK_PICKED";
 export const LEVEL_PICKED = "LEVEL_PICKED";
 
 export const LVL1_APPLIED = "LVL1_APPLIED";
 export const LVL2_APPLIED = "LVL2_APPLIED";
-
-function getStat(skill) {
-  const convert = {
-    Athletics: "strength",
-    STR: "strength",
-
-    Acrobatics: "dexterity",
-    Sleight_of_Hand: "dexterity",
-    Stealth: "dexterity",
-    DEX: "dexterity",
-
-    CON: "constitution",
-
-    Arcana: "intelligence",
-    History: "intelligence",
-    Investigation: "intelligence",
-    Nature: "intelligence",
-    Religion: "intelligence",
-    INT: "intelligence",
-
-    Animal_Handling: "wisdom",
-    Insight: "wisdom",
-    Medicine: "wisdom",
-    Perception: "wisdom",
-    Survival: "wisdom",
-    WIS: "wisdom",
-
-    Deception: "charisma",
-    Intimidation: "charisma",
-    Performance: "charisma",
-    Persuasion: "charisma",
-    CHA: "charisma",
-  };
-
-  return convert[skill]; // => Stat (Ex: charisma)
-}
 
 const monsterFetched = (monster) => ({
   type: MONSTER_FETCHED,
