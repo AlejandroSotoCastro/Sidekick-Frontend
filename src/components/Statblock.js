@@ -1,6 +1,7 @@
 import React from "react";
 
 import { useSelector } from "react-redux";
+import Pdf from "react-to-pdf";
 
 /**IMPORT HELPER FUNCTIONS */
 
@@ -13,6 +14,8 @@ import { selectSidekick } from "../store/sidekick/selectors";
 import line from "../img/stat-block-header-bar.svg";
 import top from "../img/stat-block-top-texture.png";
 import barbook from "../img/stat-bar-book.png";
+
+const ref = React.createRef();
 
 export default function Statblock() {
   /**Function to calculate mod bonus of an abilitiy score */
@@ -71,140 +74,146 @@ export default function Statblock() {
   console.log(monster);
 
   return (
-    <div className="mon-stat-block">
-      <img src={barbook} alt="barbook"></img>
-      <div>
-        <img src={top} alt="top bar"></img>
-        <h2>Name: {sidekickName}</h2>
-        <h2>Class: {cclass}</h2>
-        <h2>Level: {level}</h2>
-        <h2>{name}</h2>
-        <span>
-          {size} {type} {subtype && `(${subtype})`} {alignment}
-        </span>
-      </div>
-      <img src={line} alt="divider-line"></img>
-      <div>
-        <p>Armor Class: {armor_class}</p>
-        <p>
-          Hit Points: {hit_dice.amount}
-          {hit_dice.type}
-          {" +"}
-          {parseInt(hit_dice.amount) * parseInt(mod(constitution))}{" "}
-        </p>
-        <span>Speed: </span>
-        {speedKeys.map((key) => (
-          <span key={key}>
-            {key}, {speed[key]}
-          </span>
-        ))}
+    <div>
+      <Pdf targetRef={ref} filename="Sidekick_Charactersheet.pdf">
+        {({ toPdf }) => <button onClick={toPdf}>Generate Pdf</button>}
+      </Pdf>
+      <div className="mon-stat-block" ref={ref}>
+        <img src={barbook} alt="barbook"></img>
 
-        <p>Initiative: {mod(dexterity)} </p>
-      </div>
-      <img src={line} alt="divider-line"></img>
-      <div className="abil-sub-block">
-        <p>
-          STR <br /> {strength} ({mod(strength)})
-        </p>
-        <p>
-          DEX <br /> {dexterity} ({mod(dexterity)})
-        </p>
-        <p>
-          CON <br /> {constitution} ({mod(constitution)})
-        </p>
-        <p>
-          INT <br /> {intelligence} ({mod(intelligence)})
-        </p>
-        <p>
-          WIS <br /> {wisdom} ({mod(wisdom)})
-        </p>
-        <p>
-          CHA <br /> {charisma} ({mod(charisma)})
-        </p>
-      </div>
-      <img src={line} alt="divider-line"></img>
-      <div className="skill-sub-block">
-        {proficiencies.length > 0 && (
-          <p>
-            Skills:{" "}
-            {proficiencies.map((proficiency, index) => (
-              <span key={index}>
-                {proficiency.name}{" "}
-                {proficiency_bonus + parseInt(mod(monster[proficiency.stat]))}
-                {", "}
-              </span>
-            ))}
-          </p>
-        )}
-        {damage_vulnerabilities.length > 0 && (
-          <p>
-            Damage Vulnerabilities:{" "}
-            {damage_vulnerabilities.map((d_vulnera, index) => (
-              <span key={index}>{d_vulnera}</span>
-            ))}
-          </p>
-        )}
-        {damage_resistances.length > 0 && (
-          <p>
-            Damage Resistance:{" "}
-            {damage_resistances.map((d_resistance, index) => (
-              <span key={index}>{d_resistance}, </span>
-            ))}
-          </p>
-        )}
-        {damage_immunities.length > 0 && (
+        <div>
+          <img src={top} alt="top bar"></img>
+          <h2>Name: {sidekickName}</h2>
+          <h2>Class: {cclass}</h2>
+          <h2>Level: {level}</h2>
+          <h2>Base Monster: {name}</h2>
           <span>
-            Damage Immunities:{" "}
-            {damage_immunities.map((d_immunity, index) => (
-              <span key={index}>{d_immunity}, </span>
-            ))}
+            {size} {type} {subtype && `(${subtype})`} {alignment}
           </span>
-        )}
-        {condition_immunities.length > 0 && (
+        </div>
+        <img src={line} alt="divider-line"></img>
+        <div>
+          <p>Armor Class: {armor_class}</p>
           <p>
-            Condition Inmmunities:{" "}
-            {condition_immunities.map((immunity, index) => (
-              <span key={index}>{immunity.name}</span>
-            ))}
+            Hit Points: {hit_dice.amount}
+            {hit_dice.type}
+            {" +"}
+            {parseInt(hit_dice.amount) * parseInt(mod(constitution))}{" "}
           </p>
-        )}
-        Senses:{" "}
-        {senseKeys.map((key) => (
-          <span key={key}>
-            {key}, {senses[key]}
-            {", "}
-          </span>
-        ))}
-        <span>Passive Perception: {passive_perception} </span>
-        <p>Languages: {languages}</p>
-        <p>Challenge Rating: {challenge_rating}</p>
-        {/*TEMP */}
-        <p>Proficiency Bonus: +{proficiency_bonus}</p>
-      </div>
-      <img src={line} alt="divider-line"></img>
-      {special_abilities && special_abilities.length > 0 && (
-        <div>
-          Special abilities
-          {special_abilities.map((ability, index) => (
-            <p key={index}>
-              {ability.name}: {console.log(ability.desc, { level: level })}
-              {parseStringTemplate(ability.desc, { level: level })}
-            </p>
+          <span>Speed: </span>
+          {speedKeys.map((key) => (
+            <span key={key}>
+              {key}, {speed[key]}
+            </span>
           ))}
-          <img src={line} alt="divider-line"></img>
-        </div>
-      )}
 
-      {actions && (
-        <div>
-          Actions
-          {actions.map((action, index) => (
-            <p key={index}>
-              {action.name}: {action.desc}
-            </p>
-          ))}
+          <p>Initiative: {mod(dexterity)} </p>
         </div>
-      )}
+        <img src={line} alt="divider-line"></img>
+        <div className="abil-sub-block">
+          <p>
+            STR <br /> {strength} ({mod(strength)})
+          </p>
+          <p>
+            DEX <br /> {dexterity} ({mod(dexterity)})
+          </p>
+          <p>
+            CON <br /> {constitution} ({mod(constitution)})
+          </p>
+          <p>
+            INT <br /> {intelligence} ({mod(intelligence)})
+          </p>
+          <p>
+            WIS <br /> {wisdom} ({mod(wisdom)})
+          </p>
+          <p>
+            CHA <br /> {charisma} ({mod(charisma)})
+          </p>
+        </div>
+        <img src={line} alt="divider-line"></img>
+        <div className="skill-sub-block">
+          {proficiencies.length > 0 && (
+            <p>
+              Skills:{" "}
+              {proficiencies.map((proficiency, index) => (
+                <span key={index}>
+                  {proficiency.name}{" "}
+                  {proficiency_bonus + parseInt(mod(monster[proficiency.stat]))}
+                  {", "}
+                </span>
+              ))}
+            </p>
+          )}
+          {damage_vulnerabilities.length > 0 && (
+            <p>
+              Damage Vulnerabilities:{" "}
+              {damage_vulnerabilities.map((d_vulnera, index) => (
+                <span key={index}>{d_vulnera}</span>
+              ))}
+            </p>
+          )}
+          {damage_resistances.length > 0 && (
+            <p>
+              Damage Resistance:{" "}
+              {damage_resistances.map((d_resistance, index) => (
+                <span key={index}>{d_resistance}, </span>
+              ))}
+            </p>
+          )}
+          {damage_immunities.length > 0 && (
+            <span>
+              Damage Immunities:{" "}
+              {damage_immunities.map((d_immunity, index) => (
+                <span key={index}>{d_immunity}, </span>
+              ))}
+            </span>
+          )}
+          {condition_immunities.length > 0 && (
+            <p>
+              Condition Inmmunities:{" "}
+              {condition_immunities.map((immunity, index) => (
+                <span key={index}>{immunity.name}</span>
+              ))}
+            </p>
+          )}
+          Senses:{" "}
+          {senseKeys.map((key) => (
+            <span key={key}>
+              {key}, {senses[key]}
+              {", "}
+            </span>
+          ))}
+          <span>Passive Perception: {passive_perception} </span>
+          <p>Languages: {languages}</p>
+          <p>Challenge Rating: {challenge_rating}</p>
+          {/*TEMP */}
+          <p>Proficiency Bonus: +{proficiency_bonus}</p>
+        </div>
+        <img src={line} alt="divider-line"></img>
+        {special_abilities && special_abilities.length > 0 && (
+          <div>
+            Special abilities
+            {special_abilities.map((ability, index) => (
+              <p key={index}>
+                {ability.name}: {console.log(ability.desc, { level: level })}
+                {parseStringTemplate(ability.desc, { level: level })}
+              </p>
+            ))}
+            <img src={line} alt="divider-line"></img>
+          </div>
+        )}
+
+        {actions && (
+          <div>
+            Actions
+            {actions.map((action, index) => (
+              <p key={index}>
+                {action.name}: {action.desc}
+              </p>
+            ))}
+          </div>
+        )}
+      </div>
     </div>
   );
 }

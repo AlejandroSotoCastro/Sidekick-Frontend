@@ -7,6 +7,7 @@ import { getStat } from "../../config/HelperFunctions";
 
 export const MONSTER_FETCHED = "MONSTER_FETCHED";
 export const SIDEKICK_PICKED = "SIDEKICK_PICKED";
+export const NAME_PICKED = "NAME_PICKED";
 export const LEVEL_PICKED = "LEVEL_PICKED";
 
 export const LVL1_APPLIED = "LVL1_APPLIED";
@@ -18,9 +19,14 @@ const monsterFetched = (monster) => ({
   payload: monster,
 });
 
-const classPicked = (sidekick) => ({
+const classPicked = (sidekick_class) => ({
   type: SIDEKICK_PICKED,
-  payload: sidekick,
+  payload: sidekick_class,
+});
+
+const namePicked = (sidekick_name) => ({
+  type: NAME_PICKED,
+  payload: sidekick_name,
 });
 
 const levelPicked = (level) => ({
@@ -54,6 +60,12 @@ export const fetchMonster = (monster_index) => {
 export const pickClass = (class_index) => {
   return (dispatch, getState) => {
     dispatch(classPicked(class_index));
+  };
+};
+
+export const pickName = (sidekick_name) => {
+  return (dispatch, getState) => {
+    dispatch(namePicked(sidekick_name));
   };
 };
 

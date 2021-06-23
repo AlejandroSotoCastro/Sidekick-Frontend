@@ -1,6 +1,7 @@
 import { MONSTER_FETCHED } from "./actions";
 import { SIDEKICK_PICKED } from "./actions";
 import { LEVEL_PICKED } from "./actions";
+import { NAME_PICKED } from "./actions";
 import { LVL1_APPLIED } from "./actions";
 import { LVL2_APPLIED } from "./actions";
 import { LVL3_APPLIED } from "./actions";
@@ -60,6 +61,8 @@ export default function reducer(state = initialState, { type, payload }) {
 
     case LEVEL_PICKED:
       return { ...state, level: payload };
+    case NAME_PICKED:
+      return { ...state, sidekickName: payload };
 
     case LVL1_APPLIED:
       const newState = {
