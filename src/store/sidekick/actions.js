@@ -3,45 +3,15 @@ import { apiUrl } from "../../config/constants";
 
 import { selectSidekick } from "./selectors";
 
+import { getStat } from "../../config/HelperFunctions";
+
 export const MONSTER_FETCHED = "MONSTER_FETCHED";
 export const SIDEKICK_PICKED = "SIDEKICK_PICKED";
+export const LEVEL_PICKED = "LEVEL_PICKED";
+
 export const LVL1_APPLIED = "LVL1_APPLIED";
-
-function getStat(skill) {
-  const convert = {
-    Athletics: "strength",
-    STR: "strength",
-
-    Acrobatics: "dexterity",
-    Sleight_of_Hand: "dexterity",
-    Stealth: "dexterity",
-    DEX: "dexterity",
-
-    CON: "constitution",
-
-    Arcana: "intelligence",
-    History: "intelligence",
-    Investigation: "intelligence",
-    Nature: "intelligence",
-    Religion: "intelligence",
-    INT: "intelligence",
-
-    Animal_Handling: "wisdom",
-    Insight: "wisdom",
-    Medicine: "wisdom",
-    Perception: "wisdom",
-    Survival: "wisdom",
-    WIS: "wisdom",
-
-    Deception: "charisma",
-    Intimidation: "charisma",
-    Performance: "charisma",
-    Persuasion: "charisma",
-    CHA: "charisma",
-  };
-
-  return convert[skill]; // => Stat (Ex: charisma)
-}
+export const LVL2_APPLIED = "LVL2_APPLIED";
+export const LVL3_APPLIED = "LVL3_APPLIED";
 
 const monsterFetched = (monster) => ({
   type: MONSTER_FETCHED,
@@ -53,8 +23,23 @@ const classPicked = (sidekick) => ({
   payload: sidekick,
 });
 
+const levelPicked = (level) => ({
+  type: LEVEL_PICKED,
+  payload: level,
+});
+
 const lvl1applied = (features) => ({
   type: LVL1_APPLIED,
+  payload: features,
+});
+
+const lvl2applied = (features) => ({
+  type: LVL2_APPLIED,
+  payload: features,
+});
+
+const lvl3applied = (features) => ({
+  type: LVL3_APPLIED,
   payload: features,
 });
 
@@ -72,17 +57,20 @@ export const pickClass = (class_index) => {
   };
 };
 
+export const pickLevel = (Lvl) => {
+  return (dispatch, getState) => {
+    dispatch(levelPicked(Lvl));
+  };
+};
+
 export const applyLvl1 = (features) => {
   return (dispatch, getState) => {
-    const { proficiencies, cclass } = selectSidekick(getState());
+    const { proficiencies } = selectSidekick(getState());
 
     //get the keys of the Object.   array.includes
     const profKeys = proficiencies.map((prof) => prof.name);
-    const newFeatures = { prof: [], speciality: "" };
+    const newFeatures = { prof: [] };
 
-    //     savingProf: ""
-    // skillProf: []
-    // speciality: "attacker"
     if (!profKeys.includes(features.savingProf))
       newFeatures.prof.push({
         name: features.savingProf,
@@ -101,41 +89,24 @@ export const applyLvl1 = (features) => {
     });
 
     newFeatures.prof.push(features.otherProf);
-    newFeatures.speciality = features.speciality;
+
+    if (features.speciality) newFeatures.speciality = features.speciality;
 
     console.log(newFeatures);
-    //console.log("profkeys", profKeys);
-
-    switch (cclass) {
-      default:
-      case "warrior":
-
-      case "expert":
-      case "spellcaster":
-    }
-
-    let sidekick = {};
 
     // console.log(sidekick);
     dispatch(lvl1applied(newFeatures));
   };
 };
 
-/**PROBABLY NOT GOING TO USE THIS */
-export const pickLevel = (Lvl) => {
+export const applyLvl2 = (features) => {
   return (dispatch, getState) => {
-    const class_index = "warrior";
+    dispatch(lvl2applied(features));
+  };
+};
 
-    switch (class_index) {
-      default:
-      case "warrior":
-      case "expert":
-      case "spellcaster":
-    }
-
-    let sidekick = {};
-
-    console.log(sidekick);
-    //dispatch(LvL1Applied(sidekick));
+export const applyLvl3 = (features) => {
+  return (dispatch, getState) => {
+    dispatch(lvl3applied(features));
   };
 };

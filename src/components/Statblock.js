@@ -1,6 +1,10 @@
 import React from "react";
 
-import { useSelector, useDispatch } from "react-redux";
+import { useSelector } from "react-redux";
+
+/**IMPORT HELPER FUNCTIONS */
+
+import { parseStringTemplate } from "../config/HelperFunctions";
 
 /**IMPORT SELECTORS */
 import { selectSidekick } from "../store/sidekick/selectors";
@@ -183,7 +187,8 @@ export default function Statblock() {
           Special abilities
           {special_abilities.map((ability, index) => (
             <p key={index}>
-              {ability.name}: {ability.desc}
+              {ability.name}: {console.log(ability.desc, { level: level })}
+              {parseStringTemplate(ability.desc, { level: level })}
             </p>
           ))}
           <img src={line} alt="divider-line"></img>
