@@ -4,6 +4,8 @@ import { useSelector, useDispatch } from "react-redux";
 /**IMPORT BOOTSTRAP & REACT-SELECT*/
 import Select from "react-select";
 import Container from "react-bootstrap/Container";
+import InputGroup from "react-bootstrap/InputGroup";
+import FormControl from "react-bootstrap/FormControl";
 
 /**IMPORT COMPONENTS */
 import Statblock from "../components/Statblock";
@@ -11,7 +13,12 @@ import Editor from "../components/Editor/Editor";
 
 /**IMPORT ACTIONS */
 import { fetchListOfMonsters } from "../store/monsters/actions";
-import { fetchMonster, pickLevel, pickClass } from "../store/sidekick/actions";
+import {
+  fetchMonster,
+  pickLevel,
+  pickClass,
+  pickName,
+} from "../store/sidekick/actions";
 
 /**IMPORT SELECTORS */
 import { selectMonsters } from "../store/monsters/selectors";
@@ -31,6 +38,14 @@ export default function CreatorPage() {
 
   return (
     <Container className="Statblock">
+      <InputGroup size="lg" className="mb-3">
+        <FormControl
+          placeholder="Sidekick Name"
+          aria-label="Sidekick Name"
+          aria-describedby="basic-addon1"
+          onChange={(event) => dispatch(pickName(event.target.value))}
+        />
+      </InputGroup>
       <Select
         placeholder="Select Class"
         onChange={(text) => dispatch(pickClass(text.value))}

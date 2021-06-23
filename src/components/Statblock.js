@@ -78,7 +78,7 @@ export default function Statblock() {
         <h2>Name: {sidekickName}</h2>
         <h2>Class: {cclass}</h2>
         <h2>Level: {level}</h2>
-        <h2>{name}</h2>
+        <h2>Base Monster: {name}</h2>
         <span>
           {size} {type} {subtype && `(${subtype})`} {alignment}
         </span>
