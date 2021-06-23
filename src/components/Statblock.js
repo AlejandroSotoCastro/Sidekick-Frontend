@@ -187,7 +187,7 @@ export default function Statblock() {
           Special abilities
           {special_abilities.map((ability, index) => (
             <p key={index}>
-              {ability.name}:{" "}
+              {ability.name}: {console.log(ability.desc, { level: level })}
               {parseStringTemplate(ability.desc, { level: level })}
             </p>
           ))}

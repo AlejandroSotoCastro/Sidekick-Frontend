@@ -69,7 +69,7 @@ export const applyLvl1 = (features) => {
 
     //get the keys of the Object.   array.includes
     const profKeys = proficiencies.map((prof) => prof.name);
-    const newFeatures = { prof: [], speciality: "" };
+    const newFeatures = { prof: [] };
 
     if (!profKeys.includes(features.savingProf))
       newFeatures.prof.push({
@@ -89,9 +89,10 @@ export const applyLvl1 = (features) => {
     });
 
     newFeatures.prof.push(features.otherProf);
-    newFeatures.speciality = features.speciality;
 
-    // console.log(newFeatures);
+    if (features.speciality) newFeatures.speciality = features.speciality;
+
+    console.log(newFeatures);
 
     // console.log(sidekick);
     dispatch(lvl1applied(newFeatures));

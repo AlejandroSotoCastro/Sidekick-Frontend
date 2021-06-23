@@ -62,6 +62,19 @@ export default function reducer(state = initialState, { type, payload }) {
       return { ...state, level: payload };
 
     case LVL1_APPLIED:
+      const newState = {
+        ...state,
+        proficiencies: [...state.proficiencies, ...payload.prof],
+      };
+
+      if (payload.speciality) {
+        console.log("hola");
+        return {
+          ...newState,
+          special_abilities: [...state.special_abilities, payload.speciality],
+        };
+      } else return { ...newState };
+
       return {
         ...state,
         proficiencies: [...state.proficiencies, ...payload.prof],
