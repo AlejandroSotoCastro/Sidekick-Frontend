@@ -78,12 +78,6 @@ export default function reducer(state = initialState, { type, payload }) {
         };
       } else return { ...newState };
 
-      return {
-        ...state,
-        proficiencies: [...state.proficiencies, ...payload.prof],
-        special_abilities: [...state.special_abilities, payload.speciality],
-      };
-
     case LVL2_APPLIED:
       return {
         ...state,

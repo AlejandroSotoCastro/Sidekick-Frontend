@@ -138,7 +138,6 @@ export const level1Features = {
     expert: [],
   },
 };
-const level = 0;
 export const level2Features = {
   classFeatureNames: {
     warrior: "SECOND WIND",
@@ -156,7 +155,7 @@ export const level2Features = {
   classFeatureOptions: {
     warrior: {
       name: "Second Wind",
-      desc: "The sidekick can use a bonus action on its turn to regain hit points equal to 1d10 +  ${level} in this class. Once it uses this feature, it must finish a short or long rest before it can use it again. The sidekick can use this feature twice between rests starting at 20th level.",
+      desc: "The sidekick can use a bonus action on its turn to regain hit points equal to 1d10 + ${level} in this class. Once it uses this feature, it must finish a short or long rest before it can use it again. The sidekick can use this feature twice between rests starting at 20th level.",
     },
     spellcaster: { name: "", desc: "" },
     expert: {
