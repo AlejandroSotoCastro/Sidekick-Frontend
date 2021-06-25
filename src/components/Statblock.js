@@ -1,11 +1,14 @@
 import React from "react";
 
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import Pdf from "react-to-pdf";
 
 /**IMPORT HELPER FUNCTIONS */
 
 import { parseStringTemplate } from "../config/HelperFunctions";
+
+/**IMPORT ACTIONS */
+import { saveSidekick } from "../store/user/actions";
 
 /**IMPORT SELECTORS */
 import { selectSidekick } from "../store/sidekick/selectors";
@@ -15,6 +18,9 @@ import line from "../img/stat-block-header-bar.svg";
 import top from "../img/stat-block-top-texture.png";
 import barbook from "../img/stat-bar-book.png";
 
+/**IMPORT BOOTSTRAP & REACT-SELECT*/
+
+import Button from "react-bootstrap/Button";
 const ref = React.createRef();
 
 export default function Statblock() {
@@ -26,6 +32,7 @@ export default function Statblock() {
 
   //fetch data
   const sidekick = useSelector(selectSidekick);
+  const dispatch = useDispatch();
 
   if (!sidekick.index)
     return (
@@ -76,8 +83,15 @@ export default function Statblock() {
   return (
     <div>
       <Pdf targetRef={ref} filename="Sidekick_Charactersheet.pdf">
-        {({ toPdf }) => <button onClick={toPdf}>Generate Pdf</button>}
+        {({ toPdf }) => <Button onClick={toPdf}>Generate Pdf</Button>}
       </Pdf>
+      <Button
+        onClick={() => {
+          dispatch(saveSidekick());
+        }}
+      >
+        Save sidekick
+      </Button>
       <div className="mon-stat-block" ref={ref}>
         <img src={barbook} alt="barbook"></img>
 

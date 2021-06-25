@@ -93,6 +93,7 @@ export const applyLvl1 = (features) => {
       if (!profKeys.includes(skill)) {
         newFeatures.prof.push({ name: skill, stat: getStat(skill) });
       }
+      return null;
     });
 
     newFeatures.prof.push({
