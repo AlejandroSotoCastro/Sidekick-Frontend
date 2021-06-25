@@ -41,13 +41,13 @@ export default function Level3() {
           </Button>
         </h3>
       </span>
-      <Collapse in={open}>
+      <Collapse className="Editor-lvl-features" in={open}>
         <Container style={{ border: "solid", padding: "2% 2% 2% 2%" }}>
           <h4>{level3Features.classFeatureNames[cclass]}</h4>
           <span> {level3Features.classFeatureText[cclass]}</span>
 
           <Button
-            style={{ margin: "2% 2% 2% 2%" }}
+            style={{ margin: "2% 2% 0% 2%" }}
             onClick={() => {
               setOpen(false);
               dispatch(applyLvl3(level3Features.classFeatureOptions[cclass]));

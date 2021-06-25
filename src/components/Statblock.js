@@ -81,74 +81,90 @@ export default function Statblock() {
   console.log(monster);
 
   return (
-    <div>
+    <div className="Stat-Block-General">
       <Pdf targetRef={ref} filename="Sidekick_Charactersheet.pdf">
         {({ toPdf }) => <Button onClick={toPdf}>Generate Pdf</Button>}
       </Pdf>
       <Button
+        style={{ margin: "0% 2% 0% 2%" }}
         onClick={() => {
           dispatch(saveSidekick());
         }}
       >
         Save sidekick
       </Button>
-      <div className="mon-stat-block" ref={ref}>
-        <img src={barbook} alt="barbook"></img>
 
-        <div>
-          <img src={top} alt="top bar"></img>
-          <h2>Name: {sidekickName}</h2>
-          <h2>Class: {cclass}</h2>
-          <h2>Level: {level}</h2>
-          <h2>Base Monster: {name}</h2>
+      <div className="mon-stat-block" ref={ref}>
+        <div style={{ marginTop: "5px" }}>
+          <h2 style={{ paddingTop: "7px" }}>
+            <strong>Name:</strong> {sidekickName}
+          </h2>
+          <h2>
+            <strong>Class:</strong> {cclass}
+          </h2>
+          <h2>
+            <strong>Level:</strong> {level}
+          </h2>
+          <h2>
+            <strong>Base Monster:</strong> {name}
+          </h2>
           <span>
             {size} {type} {subtype && `(${subtype})`} {alignment}
           </span>
         </div>
         <img src={line} alt="divider-line"></img>
         <div>
-          <p>Armor Class: {armor_class}</p>
           <p>
-            Hit Points: {hit_dice.amount}
+            <strong>Armor Class: </strong>
+            {armor_class}
+          </p>
+          <p>
+            <strong>Hit Points: </strong> {hit_dice.amount}
             {hit_dice.type}
             {" +"}
             {parseInt(hit_dice.amount) * parseInt(mod(constitution))}{" "}
           </p>
-          <span>Speed: </span>
+          <span>
+            {" "}
+            <strong>Speed: </strong>
+          </span>
           {speedKeys.map((key) => (
             <span key={key}>
               {key}, {speed[key]}
             </span>
           ))}
 
-          <p>Initiative: {mod(dexterity)} </p>
+          <p>
+            {" "}
+            <strong>Initiative: </strong> {mod(dexterity)}{" "}
+          </p>
         </div>
         <img src={line} alt="divider-line"></img>
         <div className="abil-sub-block">
-          <p>
-            STR <br /> {strength} ({mod(strength)})
+          <p className="ability-block__stat">
+            <strong>STR</strong> <br /> {strength} ({mod(strength)})
           </p>
-          <p>
-            DEX <br /> {dexterity} ({mod(dexterity)})
+          <p className="ability-block__stat">
+            <strong>DEX</strong> <br /> {dexterity} ({mod(dexterity)})
           </p>
-          <p>
-            CON <br /> {constitution} ({mod(constitution)})
+          <p className="ability-block__stat">
+            <strong>CON</strong> <br /> {constitution} ({mod(constitution)})
           </p>
-          <p>
-            INT <br /> {intelligence} ({mod(intelligence)})
+          <p className="ability-block__stat">
+            <strong>INT</strong> <br /> {intelligence} ({mod(intelligence)})
           </p>
-          <p>
-            WIS <br /> {wisdom} ({mod(wisdom)})
+          <p className="ability-block__stat">
+            <strong>WIS</strong> <br /> {wisdom} ({mod(wisdom)})
           </p>
-          <p>
-            CHA <br /> {charisma} ({mod(charisma)})
+          <p className="ability-block__stat">
+            <strong>CHA</strong> <br /> {charisma} ({mod(charisma)})
           </p>
         </div>
         <img src={line} alt="divider-line"></img>
         <div className="skill-sub-block">
           {proficiencies.length > 0 && (
             <p>
-              Skills:{" "}
+              <strong>Skills: </strong>
               {proficiencies.map((proficiency, index) => (
                 <span key={index}>
                   {proficiency.name}{" "}
@@ -160,7 +176,7 @@ export default function Statblock() {
           )}
           {damage_vulnerabilities.length > 0 && (
             <p>
-              Damage Vulnerabilities:{" "}
+              <strong>Damage Vulnerabilities:</strong>{" "}
               {damage_vulnerabilities.map((d_vulnera, index) => (
                 <span key={index}>{d_vulnera}</span>
               ))}
@@ -168,7 +184,7 @@ export default function Statblock() {
           )}
           {damage_resistances.length > 0 && (
             <p>
-              Damage Resistance:{" "}
+              <strong>Damage Resistance: </strong>{" "}
               {damage_resistances.map((d_resistance, index) => (
                 <span key={index}>{d_resistance}, </span>
               ))}
@@ -176,7 +192,7 @@ export default function Statblock() {
           )}
           {damage_immunities.length > 0 && (
             <span>
-              Damage Immunities:{" "}
+              <strong>Damage Immunities:</strong>{" "}
               {damage_immunities.map((d_immunity, index) => (
                 <span key={index}>{d_immunity}, </span>
               ))}
@@ -184,32 +200,44 @@ export default function Statblock() {
           )}
           {condition_immunities.length > 0 && (
             <p>
-              Condition Inmmunities:{" "}
+              <strong>Condition Inmmunities:</strong>{" "}
               {condition_immunities.map((immunity, index) => (
                 <span key={index}>{immunity.name}</span>
               ))}
             </p>
           )}
-          Senses:{" "}
+          <strong>Senses:</strong>{" "}
           {senseKeys.map((key) => (
             <span key={key}>
               {key}, {senses[key]}
               {", "}
             </span>
           ))}
-          <span>Passive Perception: {passive_perception} </span>
-          <p>Languages: {languages}</p>
-          <p>Challenge Rating: {challenge_rating}</p>
+          <span>
+            <strong>Passive Perception: </strong>
+            {passive_perception}{" "}
+          </span>
+          <p>
+            <strong>Languages: </strong> {languages}
+          </p>
+          <p>
+            <strong>Challenge Rating: </strong> {challenge_rating}
+          </p>
           {/*TEMP */}
-          <p>Proficiency Bonus: +{proficiency_bonus}</p>
+          <p>
+            <strong>Proficiency Bonus:</strong> +{proficiency_bonus}
+          </p>
         </div>
         <img src={line} alt="divider-line"></img>
         {special_abilities && special_abilities.length > 0 && (
           <div>
-            Special abilities
+            <h3>
+              <strong>Special abilities</strong>
+            </h3>
             {special_abilities.map((ability, index) => (
               <p key={index}>
-                {ability.name}: {console.log(ability.desc, { level: level })}
+                <strong>{ability.name}:</strong>{" "}
+                {console.log(ability.desc, { level: level })}
                 {parseStringTemplate(ability.desc, { level: level })}
               </p>
             ))}
@@ -219,10 +247,13 @@ export default function Statblock() {
 
         {actions && (
           <div>
-            Actions
+            <h3>
+              <strong>Actions</strong>
+            </h3>
+
             {actions.map((action, index) => (
               <p key={index}>
-                {action.name}: {action.desc}
+                <strong>{action.name}:</strong> {action.desc}
               </p>
             ))}
           </div>

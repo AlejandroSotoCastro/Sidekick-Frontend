@@ -10,6 +10,8 @@ export default function HomePage() {
       style={{
         border: "solid",
         padding: "2% 2% 2% 2%",
+        marginLeft: "10%",
+        marginRight: "10%",
       }}
     >
       <p>Sidekicks are a fantastic way to let your players:</p>

@@ -45,7 +45,7 @@ export default function Level1() {
           </Button>
         </h3>
       </span>
-      <Collapse in={open}>
+      <Collapse className="Editor-lvl-features" in={open}>
         <Container style={{ border: "solid", padding: "2% 2% 2% 2%" }}>
           <h4>BONUS PROFICIENCIES</h4>
           <p>
@@ -115,7 +115,7 @@ export default function Level1() {
           )}
 
           <Button
-            style={{ margin: "2% 2% 2% 2%" }}
+            style={{ margin: "2% 2% 0% 2%" }}
             onClick={() => {
               setOpen(false);
               setlvl1Values({

@@ -28,7 +28,7 @@ function App() {
 
   return (
     <header className="App-header">
-      <Navigation />
+      <Navigation className="Navigation" />
       <MessageBox />
 
       {isLoading ? <Loading /> : null}
